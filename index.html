@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mid Q4</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <!-- Your site content here -->
+  <button id="show">Show all users</button>
+
+  <div id="users"></div>
+  <div id="add">
+    <input id="name" type="text" placeholder="Name"><br/>
+    <input id="email" type="email" placeholder="Email"><br/>
+    <input id="password" type="password" placeholder="Password"><br/>
+    <button id="signup">Sign Up</button>
+  </div>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    var user = {name: "", email: "", password: ""}
+    $('#signup').click(function(){
+      user.name = $('#name').val();
+      user.email = $('#email').val();
+      user.password = $('#password').val();
+      $.ajax({
+        method: "POST",
+        url: "http://skeleton.mernbook.com/api/users",
+        data: JSON.stringify(user)
+      }).done(function(response){
+        console.log(response)
+      }).fail(function(response){
+        console.log(response)
+      })
+    })
+
+    $('#show').click(function () {
+      $.ajax({
+        method: "GET",
+          url: "http://skeleton.mernbook.com/api/users"
+      }).done(function (response) {
+        console.log('Done')
+        console.log(response)
+        for(var i = 0; i < response.length; i++){
+          var name = $('<p>').text(response[i].name)
+          $('#users').append(name)
+        }
+      }).fail(function (response) {
+        console.log('Failed')
+        console.log(response)
+      })
+    })
+  </script>
+</body>
+
+</html>
