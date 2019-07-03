@@ -28,7 +28,7 @@
       $.ajax({
         method: "POST",
         url: "http://skeleton.mernbook.com/api/users",
-        data: JSON.stringify(user)
+        data: user
       }).done(function(response){
         console.log(response)
       }).fail(function(response){
